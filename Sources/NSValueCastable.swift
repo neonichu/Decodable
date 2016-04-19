@@ -48,8 +48,8 @@ extension NSValueCastable {
             throw TypeMismatchError(expectedType: NSValue.self, receivedType: j.dynamicType, object: j)
         }
 
-        let pointer = PointerOfSelf.alloc(1)
-        defer { pointer.dealloc(1) }
+        let pointer = PointerOfSelf(allocatingCapacity: 1)
+        defer { pointer.deallocateCapacity(1) }
         value.getValue(pointer)
         return pointer.move()
     }
