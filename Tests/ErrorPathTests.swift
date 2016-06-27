@@ -12,7 +12,7 @@ import XCTest
 private struct Color: Decodable {
     let name: String
     
-    private static func decode(json: AnyObject) throws -> Color {
+    private static func decode(_ json: AnyObject) throws -> Color {
         return try Color(name: json => "name")
     }
 }
@@ -21,7 +21,7 @@ private struct Apple: Decodable {
     let id: Int
     let color: Color?
     
-    private static func decode(json: AnyObject) throws -> Apple {
+    private static func decode(_ json: AnyObject) throws -> Apple {
         return try Apple(id: json => "id", color: json => "color")
     }
 }
@@ -29,7 +29,7 @@ private struct Apple: Decodable {
 private struct Tree: Decodable {
     let apples: [Apple]
     
-    private static func decode(json: AnyObject) throws -> Tree {
+    private static func decode(_ json: AnyObject) throws -> Tree {
         return try Tree(apples: json => "apples")
     }
 }
@@ -100,10 +100,10 @@ class ErrorPathTests: XCTestCase {
         XCTAssertEqual(a, 3)
     }
     
-    private func uppercase(json: NSDictionary) -> NSDictionary {
+    private func uppercase(_ json: NSDictionary) -> NSDictionary {
         var result = [String: AnyObject]()
         for (key, value) in json {
-            result[key.uppercaseString] = value
+            result[key.uppercased] = value
         }
         print(result)
         return result
